@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <stdio.h>    
+#include <stdlib.h> 
+#include <fstream>
 
 #include "ComponentInfo.h"
 
@@ -19,7 +22,7 @@ public:
         this->m_compInfo = cinfo;
     };
     
-    void run ( void ) {};
+    void Run ( void );
     
 private:
     
@@ -27,6 +30,36 @@ private:
     * Name of component member.
     **/    
     ComponentInfo m_compInfo;
+    
+    bool ifDirExist(){
+//         ofstream newFile (path, ios::trunc);  
+//                                         
+//         // path found?
+//         if(newFile.good() == false) 
+//         {
+//             cout << "Directory doesn't exist. Closing wizard" << endl;
+//             return false;
+//         }      
+        return true;
+    }
+    
+    void createDir ( string path ) {
+        string command = "mkdir " + path;
+        system( command.c_str() );        
+        
+    }
+    
+    void writingFile ( string filename, string textvalue){
+        ofstream Zieldatei("Datei.txt");
+        Zieldatei << "Dies ist der neue Text\n";
+        Zieldatei.close();        
+                
+//         ofstream myfile();
+        ofstream myfile( filename.c_str() );
+//         myfile.open (filename);
+        myfile << textvalue;
+        myfile.close();        
+    }
     
 };
 
