@@ -45,7 +45,9 @@ private:
     
     void createDir ( string path ) {
         string command = "mkdir " + path;
-        system( command.c_str() );        
+        int result = system( command.c_str() );
+        printf ("The value returned was: %d.\n",result);
+        cout << "result: " << result << endl;
         
     }
     

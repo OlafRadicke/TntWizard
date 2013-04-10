@@ -96,4 +96,5 @@ int main( int argc, char* argv[] )
     }
     ViewCreator vc( compInfo );
     vc.Run();
+    cout << "Ende..." << endl;
 }
