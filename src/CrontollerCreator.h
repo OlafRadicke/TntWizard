@@ -1,5 +1,5 @@
-#ifndef VIEWCREATOR_H
-#define VIEWCREATOR_H 
+#ifndef CRONTOLLERCREATOR_H
+#define CRONTOLLERCREATOR_H 
 
 #include <iostream>
 #include <string>
@@ -18,11 +18,11 @@ using namespace std;
 /**
  * A helper class for store component member.
  **/
-class  ViewCreator {
+class  CrontollerCreator {
     
 public:
     
-    ViewCreator ( ComponentInfo cinfo ) {
+    CrontollerCreator ( ComponentInfo cinfo ) {
         this->m_compInfo = cinfo;
     };
     

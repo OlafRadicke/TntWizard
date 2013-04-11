@@ -4,6 +4,7 @@
 
 #include "TypInfo.h"
 #include "ComponentInfo.h"
+#include "CrontollerCreator.h"
 #include "ViewCreator.h"
 
 using namespace std; 
@@ -49,10 +50,16 @@ int main( int argc, char* argv[] )
             argType = "--number";
             continue;
         }
-        if ( string(argv[i]) == "-S" || string(argv[i]) == "select" ) {
+        if ( string(argv[i]) == "-S" || string(argv[i]) == "--select" ) {
             argType = "select";
             continue;
         }
+        if ( string(argv[i]) == "-S" || string(argv[i]) == "--checkbox" ) {
+            argType = "checkbox";
+            continue;
+        }
+        
+        
         ///////////// is no argument. is a value... /////////////////
         if ( argType == "--component" ) {
             compInfo.Name = string(argv[i]);
@@ -93,8 +100,18 @@ int main( int argc, char* argv[] )
             compInfo.ComponentMembers.push_back( typInfo );
             continue;
         }
+        if ( argType == "--checkbox" ) {
+            TypInfo typInfo = TypInfo();
+            typInfo.Type = "checkbox";
+            typInfo.Name = string(argv[i]);
+            compInfo.ComponentMembers.push_back( typInfo );
+            continue;
+        }
+        
     }
     ViewCreator vc( compInfo );
     vc.Run();
+    CrontollerCreator cc( compInfo );
+    cc.Run();
     cout << "Ende..." << endl;
 }

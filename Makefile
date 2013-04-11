@@ -8,7 +8,8 @@ LIBS += -I/usr/include
 
 OBJECTS = \
 ./src/tntwizard.o \
-./src/ViewCreator.o
+./src/CrontollerCreator.o \
+./src/ViewCreator.o \
 
 
 all: dist
