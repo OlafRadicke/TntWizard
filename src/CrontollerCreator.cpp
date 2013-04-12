@@ -51,7 +51,7 @@ void CrontollerCreator::Run ( void ) {
         }
     }    
 
-    controllOutput += "\t\t" + m_compInfo.Name + ".saveAsNew( ); \n";
+    controllOutput += "\t\tobject" + m_compInfo.Name + ".saveAsNew( ); \n";
     controllOutput += "\t\tfeedback = \"Data is stored!\"; \n";
     controllOutput += "\t}  \n";
     controllOutput += "</%cpp> \n";
