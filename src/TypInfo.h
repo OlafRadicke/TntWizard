@@ -17,7 +17,7 @@ public:
     string Name;
     
     /**
-    * Typ of component member.
+    * Typ of component member (as htnl form type).
     **/    
     string Type;
     

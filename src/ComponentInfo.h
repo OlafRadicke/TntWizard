@@ -29,12 +29,19 @@ public:
     
     ComponentInfo () {
         this->Name = "";
-        m_typeMatching["text"] = "string";
-        m_typeMatching["textarea"] = "string";
-        m_typeMatching["password"] = "string";
-        m_typeMatching["select"] = "string";
-        m_typeMatching["number"] = "long";
-        m_typeMatching["checkbox"] = "bool";
+        m_cTypeMatching["text"] = "string";
+        m_cTypeMatching["textarea"] = "string";
+        m_cTypeMatching["password"] = "string";
+        m_cTypeMatching["select"] = "string";
+        m_cTypeMatching["number"] = "long";
+        m_cTypeMatching["checkbox"] = "bool";
+        
+        m_sqlTypeMatching["text"] = "TEXT";
+        m_sqlTypeMatching["textarea"] = "TEXT";
+        m_sqlTypeMatching["password"] = "TEXT";
+        m_sqlTypeMatching["select"] = "TEXT";
+        m_sqlTypeMatching["number"] = "BIGINT";
+        m_sqlTypeMatching["checkbox"] = "BOOLEAN";
     }
     
     /**
@@ -42,7 +49,7 @@ public:
      * @return the type keyword in c for this type.
      **/
     string htmlToCType ( string htmltype ) {
-        return m_typeMatching[ htmltype ];
+        return m_cTypeMatching[ htmltype ];
     }
     
     /**
@@ -50,14 +57,38 @@ public:
      * @return the type keyword in c for this type.
      **/    
     string htmlToCType ( int namberOfMember ) {
-        return m_typeMatching[ this->ComponentMembers[namberOfMember].Type ];
+        return m_cTypeMatching[ this->ComponentMembers[namberOfMember].Type ];
     }    
     
+    
+    /**
+     * Do the same as function htmlToCType. But better function name.
+     * @arg namberOfMember namber of component member.
+     * @return the type keyword in c for this type.
+     **/    
+    string getMemberCType ( int namberOfMember ) {
+        return m_cTypeMatching[ this->ComponentMembers[namberOfMember].Type ];
+    }
+    
+    /**
+     * @arg namberOfMember namber of component member.
+     * @return the type keyword in sql for this type.
+     **/    
+    string getMemberSQLType ( int namberOfMember ) {
+        return m_sqlTypeMatching[ this->ComponentMembers[namberOfMember].Type ];
+    }
+    
 private:
+    
     /**
     * A map list vor matching c++ types with html form types.
     **/      
-    map<string, string> m_typeMatching; 
+    map<string, string> m_cTypeMatching; 
+    
+    /**
+    * A map list vor matching sql types with html form types.
+    **/      
+    map<string, string> m_sqlTypeMatching; 
 };
 
 

@@ -1,15 +1,6 @@
 
 #include "ViewCreator.h"
 
-string ViewCreator::getEcppArgs ( void ) {
-    string argsOutput = "";
-    for ( unsigned int i=0; i<m_compInfo.ComponentMembers.size(); i++) {
-        argsOutput += "\t " + m_compInfo.htmlToCType( i );
-        argsOutput += " " + m_compInfo.ComponentMembers[i].Type + ";\n";
-        
-    };
-    return argsOutput;
-}
 
 void ViewCreator::Run ( void ) {
     string viewOutput = "";
@@ -92,9 +83,7 @@ void ViewCreator::Run ( void ) {
     viewOutput += "</body>\n";
     viewOutput += "</html>\n";
     
-    DEBUG endl;
     createDir ( "views" );
-    DEBUG endl;
     writingFile ( "views/" + m_compInfo.Name + "Controller.ecpp", viewOutput);
     DEBUG endl;
     

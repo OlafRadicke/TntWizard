@@ -1,5 +1,5 @@
-#ifndef VIEWCREATOR_H
-#define VIEWCREATOR_H 
+#ifndef MODELCREATOR_H
+#define MODELCREATOR_H 
 
 #include <iostream>
 #include <string>
@@ -15,25 +15,38 @@
 
 using namespace std; 
 
-
 /**
- * This class create a view for a component.
+ * This Class create a model C++-class for a component.
  **/
-class  ViewCreator {
+class  ModelCreator {
     
 public:
     
-    ViewCreator ( ComponentInfo cinfo ) {
+    ModelCreator ( ComponentInfo cinfo ) {
         this->m_compInfo = cinfo;
     };
     
+    /**
+    * Starts the process.
+    **/      
     void Run ( void );
     
 private:
     
     /**
+    * Create the .h file.
+    **/      
+    void creatH ( void );   
+    
+
+    /**
+    * Create the .cpp file.
+    **/      
+    void creatCPP ( void );      
+    
+    /**
     * Info about name and component member.
-    **/    
+    **/  
     ComponentInfo m_compInfo;
     
     bool ifDirExist(){
@@ -67,7 +80,29 @@ private:
         myfile << textvalue;
         myfile.close();        
     }
+    
+    /**
+    * Generat the value of tag "<%args>".
+    * @return A sting with args values.
+    **/      
+    string getEcppArgs ( void );
+    
+    /**
+     * Search and replace function.
+     * @param rep search string
+     * @param rep replace string
+     * @param rep original string
+     * @return string with replacements
+     **/
+    string strReplace (string rep, string wit, string in);
 
+    /**
+     * Return a copy of the string with all the cased characters converted to 
+     * upercase.
+     **/    
+    string upercase ( string keywords );    
+    
+    
     
 };
 

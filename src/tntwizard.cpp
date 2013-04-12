@@ -5,6 +5,7 @@
 #include "TypInfo.h"
 #include "ComponentInfo.h"
 #include "CrontollerCreator.h"
+#include "ModelCreator.h"
 #include "ViewCreator.h"
 
 using namespace std; 
@@ -113,5 +114,7 @@ int main( int argc, char* argv[] )
     vc.Run();
     CrontollerCreator cc( compInfo );
     cc.Run();
+    ModelCreator mc( compInfo );
+    mc.Run();
     cout << "Ende..." << endl;
 }

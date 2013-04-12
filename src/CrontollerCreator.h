@@ -16,7 +16,7 @@
 using namespace std; 
 
 /**
- * A helper class for store component member.
+ * This class create a controller for a component.
  **/
 class  CrontollerCreator {
     
@@ -31,8 +31,8 @@ public:
 private:
     
     /**
-    * Name of component member.
-    **/    
+    * Info about name and component member.
+    **/ 
     ComponentInfo m_compInfo;
     
     bool ifDirExist(){
@@ -47,22 +47,23 @@ private:
         return true;
     }
     
+    /**
+    * Create a directory.
+    **/     
     void createDir ( string path ) {
         string command = "mkdir " + path;
         int result = system( command.c_str() );
-        printf ("The value returned was: %d.\n",result);
-        cout << "result: " << result << endl;
+        DEBUG "The value returned was: " << result << endl;
         
     }
     
+    /**
+    * Write a output file.
+    * @arg filename file name.
+    * @arg textvalue text value.
+    **/        
     void writingFile ( string filename, string textvalue){
-        ofstream Zieldatei("Datei.txt");
-        Zieldatei << "Dies ist der neue Text\n";
-        Zieldatei.close();        
-                
-//         ofstream myfile();
         ofstream myfile( filename.c_str() );
-//         myfile.open (filename);
         myfile << textvalue;
         myfile.close();        
     }

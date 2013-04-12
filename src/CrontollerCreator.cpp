@@ -11,59 +11,52 @@ string CrontollerCreator::getEcppArgs ( void ) {
 }
 
 void CrontollerCreator::Run ( void ) {
-    string viewOutput = "";
-    viewOutput += "";
+    string controllOutput = "";
+    controllOutput += "";
     
-///////////////////////////////////////////////////////////////////////////
-    
-    viewOutput += "<%pre> \n";
-    viewOutput += "</%pre> \n \n";
+    controllOutput += "<%pre> \n";
+    controllOutput += "</%pre> \n \n";
 
-    viewOutput += "<%config> \n";
-    viewOutput += "</%config> \n \n";
+    controllOutput += "<%config> \n";
+    controllOutput += "</%config> \n \n";
 
-    viewOutput += "<%args> \n";
-    viewOutput += this->getEcppArgs ();
-    viewOutput += "</%args> \n \n";
+    controllOutput += "<%args> \n";
+    controllOutput += this->getEcppArgs ();
+    controllOutput += "</%args> \n \n";
 
-    viewOutput += "<%session scope=\"global\"> \n";
-    viewOutput += "</%session> \n \n";
+    controllOutput += "<%session scope=\"global\"> \n";
+    controllOutput += "</%session> \n \n";
 
     
-    viewOutput += "<%cpp> \n";
-    viewOutput += "\tstd::string feedback = \"\"; \n";
-    viewOutput += "\t" + m_compInfo.Name + " object" + m_compInfo.Name + "; \n \n";
-    viewOutput += "\t// is button \"save_button\" kicked? \n";
-    viewOutput += "\tif ( save_button == \"save_pressed\" ) { \n";
+    controllOutput += "<%cpp> \n";
+    controllOutput += "\tstd::string feedback = \"\"; \n";
+    controllOutput += "\t" + m_compInfo.Name + " object" + m_compInfo.Name + "; \n \n";
+    controllOutput += "\t// is button \"save_button\" kicked? \n";
+    controllOutput += "\tif ( save_button == \"save_pressed\" ) { \n";
     for ( unsigned int i=0; i<m_compInfo.ComponentMembers.size(); i++) {
         if ( m_compInfo.ComponentMembers[i].Type == "checkbox" ) {
-            viewOutput += "\t\tif ( is_private_data == \"false\" ) {\n";
-                viewOutput += "\t\t\tobject" + m_compInfo.Name + ".set" + \
+            controllOutput += "\t\tif ( is_private_data == \"false\" ) {\n";
+                controllOutput += "\t\t\tobject" + m_compInfo.Name + ".set" + \
                     m_compInfo.ComponentMembers[i].Name + \
                     "( false ); \n";
-            viewOutput += "\t\t} else {\n";
-                viewOutput += "\t\t\tobject" + m_compInfo.Name + ".set" + \
+            controllOutput += "\t\t} else {\n";
+                controllOutput += "\t\t\tobject" + m_compInfo.Name + ".set" + \
                     m_compInfo.ComponentMembers[i].Name + \
                     "( false ); \n";
-            viewOutput += "\t\t} \n";
+            controllOutput += "\t\t} \n";
         } else {
-            viewOutput += "\t\tobject" + m_compInfo.Name + ".set" + \
+            controllOutput += "\t\tobject" + m_compInfo.Name + ".set" + \
                 m_compInfo.ComponentMembers[i].Name + \
                 "( " + m_compInfo.ComponentMembers[i].Name + " ); \n";
         }
     }    
 
-    viewOutput += "\t\t" + m_compInfo.Name + ".saveAsNew( ); \n";
-    viewOutput += "\tfeedback = \"Data is stored!\"; \n";
-    viewOutput += "\t}  \n";
-    viewOutput += "</%cpp> \n";
+    controllOutput += "\t\t" + m_compInfo.Name + ".saveAsNew( ); \n";
+    controllOutput += "\t\tfeedback = \"Data is stored!\"; \n";
+    controllOutput += "\t}  \n";
+    controllOutput += "</%cpp> \n";
    
-    
-    DEBUG endl;
     createDir ( "controller" );
-    DEBUG endl;
-    writingFile ( "controller/" + m_compInfo.Name + "Controller.ecpp", viewOutput);
-    DEBUG endl;
-    
+    writingFile ( "controller/" + m_compInfo.Name + "Controller.ecpp", controllOutput);
 }
 

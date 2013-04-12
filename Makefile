@@ -9,6 +9,7 @@ LIBS += -I/usr/include
 OBJECTS = \
 ./src/tntwizard.o \
 ./src/CrontollerCreator.o \
+./src/ModelCreator.o \
 ./src/ViewCreator.o \
 
 
@@ -17,7 +18,7 @@ all: dist
 
 
 dist: $(PROG_NAME)
-	############################## Start ##############################
+	############################## dist ##############################
 	if [ ! -d $(DIST) ]; then mkdir $(DIST) ; fi
 	mv ./$(PROG_NAME) $(DIST)
 	cp ./GPLv3.txt $(DIST)
@@ -25,6 +26,7 @@ dist: $(PROG_NAME)
 
 
 $(PROG_NAME): $(OBJECTS)
+	############################## Start ##############################
 	LANG=C LC_ALL=C $(CC) $(CPPFLAGS) -o $(PROG_NAME) $(OBJECTS) $(LIBS)	
 
 clean:
