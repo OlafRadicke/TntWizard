@@ -62,48 +62,48 @@ int main( int argc, char* argv[] )
         
         ///////////// is no argument. is a value... /////////////////
         if ( argType == "--component" ) {
-            compInfo.Name = std::string(argv[i]);
+            compInfo.Name =  std::string(argv[i]) ;
             continue;
         }
         if ( argType == "--text" ) {
             TypInfo typInfo = TypInfo();
-            typInfo.Type = "text";
-            typInfo.Name = std::string(argv[i]);
+            typInfo.setType("text");
+            typInfo.setName( std::string(argv[i]) );
             compInfo.ComponentMembers.push_back( typInfo );
             continue;
         }
         if ( argType == "--textarea" ) {
             TypInfo typInfo = TypInfo();
-            typInfo.Type = "textarea";
-            typInfo.Name = std::string(argv[i]);
+            typInfo.setType( "textarea" );
+            typInfo.setName(  std::string(argv[i]) );
             compInfo.ComponentMembers.push_back( typInfo );
             continue;
         }
         if ( argType == "--password" ) {
             TypInfo typInfo = TypInfo();
-            typInfo.Type = "password";
-            typInfo.Name = std::string(argv[i]);
+            typInfo.setType( "password" );
+            typInfo.setName(  std::string(argv[i]) );
             compInfo.ComponentMembers.push_back( typInfo );
             continue;
         }
         if ( argType == "--number" ) {
             TypInfo typInfo = TypInfo();
-            typInfo.Type = "number";
-            typInfo.Name = std::string(argv[i]);
+            typInfo.setType( "number" );
+            typInfo.setName(  std::string(argv[i]) );
             compInfo.ComponentMembers.push_back( typInfo );
             continue;
         }
         if ( argType == "--select" ) {
             TypInfo typInfo = TypInfo();
-            typInfo.Type = "select";
-            typInfo.Name = std::string(argv[i]);
+            typInfo.setType( "select" );
+            typInfo.setName(  std::string(argv[i]) );
             compInfo.ComponentMembers.push_back( typInfo );
             continue;
         }
         if ( argType == "--checkbox" ) {
             TypInfo typInfo = TypInfo();
-            typInfo.Type = "checkbox";
-            typInfo.Name = std::string(argv[i]);
+            typInfo.setType( "checkbox" );
+            typInfo.setName(  std::string(argv[i]) );
             compInfo.ComponentMembers.push_back( typInfo );
             continue;
         }

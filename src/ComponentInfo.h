@@ -48,13 +48,13 @@ public:
      * @return the type keyword in c for this type.
      **/
     const std::string& htmlToCType ( const std::string& htmltype )const{
-         std::map<std::string, std::string>::const_iterator it = 
-              m_cTypeMatching.find(htmltype);
-         // in C++11 kann man es kürzer schreiben:
-         // auto it = m_cTypeMatching.find(htmltype);
-         if (it == m_cTypeMatching.end())
-             throw std::runtime_error("unknown htmltype " + htmltype);
-         return it->second;
+        std::map<std::string, std::string>::const_iterator it = 
+            m_cTypeMatching.find(htmltype);
+        // in C++11 kann man es kürzer schreiben:
+        // auto it = m_cTypeMatching.find(htmltype);
+        if (it == m_cTypeMatching.end())
+            throw std::runtime_error("unknown htmltype " + htmltype);
+        return it->second;
      }      
     
     
@@ -63,8 +63,14 @@ public:
      * @return the type keyword in c for this type.
      **/    
     const std::string& getMemberCType ( const int namberOfMember ) const {
-        std::string type = this->ComponentMembers[namberOfMember].Type();
-        return this->m_cTypeMatching[ type ];
+        std::string htmltype = this->ComponentMembers[namberOfMember].Type();
+        std::map<std::string, std::string>::const_iterator it = 
+            m_cTypeMatching.find( htmltype );
+        // in C++11 kann man es kürzer schreiben:
+        // auto it = m_cTypeMatching.find(htmltype);
+        if (it == m_cTypeMatching.end())
+            throw std::runtime_error( "unknown htmltype " + htmltype );
+        return it->second;
     }
     
     /**
@@ -72,7 +78,14 @@ public:
      * @return the type keyword in sql for this type.
      **/    
     const std::string& getMemberSQLType ( const int namberOfMember ) const {
-        return this->m_sqlTypeMatching[ this->ComponentMembers[namberOfMember].Type ];
+        std::string htmltype = this->ComponentMembers[namberOfMember].Type();
+        std::map<std::string, std::string>::const_iterator it = 
+            m_cTypeMatching.find( htmltype );
+        // in C++11 kann man es kürzer schreiben:
+        // auto it = m_cTypeMatching.find(htmltype);
+        if (it == m_cTypeMatching.end())
+            throw std::runtime_error( "unknown htmltype " + htmltype );
+        return it->second;
     }
     
     

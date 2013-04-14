@@ -18,6 +18,23 @@ public:
         return this->n_Name;
     };
     
+    
+    /**
+    * Set name of component member.
+    * @arg newValue new value;
+    **/    
+    void setName( std::string newValue ) {
+        this->n_Name = newValue;
+    };    
+    
+    /**
+    * Set typ of component member (as htnl form type).
+    * @arg newValue new value;
+    **/    
+    void setType( std::string newValue ) {
+        this->n_Type = newValue;
+    };    
+    
     /**
     * Typ of component member (as htnl form type).
     **/    
