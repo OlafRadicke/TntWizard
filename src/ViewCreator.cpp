@@ -54,7 +54,7 @@ void ViewCreator::Run ( void ) {
 
         if ( m_compInfo.ComponentMembers[i].Type == "number" ) {
             viewOutput += "\t\t<p><input name=\"";
-            viewOutput += m_compInfo.ComponentMembers[i].Name + " \n ";
+            viewOutput += m_compInfo.ComponentMembers[i].Name + "\" \n ";
             viewOutput += "\t\t\t type=\"number\" \n";
             viewOutput += "\t\t\t min=\"1\" \n";
             viewOutput += "\t\t\t max=\"100000\"  \n";

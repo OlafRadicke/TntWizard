@@ -4,10 +4,9 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <stdexcept>
 
 #include "TypInfo.h"
-
-using namespace std;
 
 /**
  * A helper class for store component info.
@@ -20,19 +19,19 @@ public:
     /**
     * Name of keyword.
     **/    
-    string Name;
+    std::string Name;
     
     /**
     * Component member.
     **/    
-    vector<TypInfo> ComponentMembers;
+    std::vector<TypInfo> ComponentMembers;
     
     ComponentInfo () {
         this->Name = "";
-        m_cTypeMatching["text"] = "string";
-        m_cTypeMatching["textarea"] = "string";
-        m_cTypeMatching["password"] = "string";
-        m_cTypeMatching["select"] = "string";
+        m_cTypeMatching["text"] = "std::string";
+        m_cTypeMatching["textarea"] = "std::string";
+        m_cTypeMatching["password"] = "std::string";
+        m_cTypeMatching["select"] = "std::string";
         m_cTypeMatching["number"] = "long";
         m_cTypeMatching["checkbox"] = "bool";
         
@@ -48,47 +47,48 @@ public:
      * @arg htmltype A html form type as string.
      * @return the type keyword in c for this type.
      **/
-    string htmlToCType ( string htmltype ) {
-        return m_cTypeMatching[ htmltype ];
-    }
+    const std::string& htmlToCType ( const std::string& htmltype )const{
+         std::map<std::string, std::string>::const_iterator it = 
+              m_cTypeMatching.find(htmltype);
+         // in C++11 kann man es kürzer schreiben:
+         // auto it = m_cTypeMatching.find(htmltype);
+         if (it == m_cTypeMatching.end())
+             throw std::runtime_error("unknown htmltype " + htmltype);
+         return it->second;
+     }      
+    
     
     /**
      * @arg namberOfMember namber of component member.
      * @return the type keyword in c for this type.
      **/    
-    string htmlToCType ( int namberOfMember ) {
-        return m_cTypeMatching[ this->ComponentMembers[namberOfMember].Type ];
-    }    
-    
-    
-    /**
-     * Do the same as function htmlToCType. But better function name.
-     * @arg namberOfMember namber of component member.
-     * @return the type keyword in c for this type.
-     **/    
-    string getMemberCType ( int namberOfMember ) {
-        return m_cTypeMatching[ this->ComponentMembers[namberOfMember].Type ];
+    const std::string& getMemberCType ( const int namberOfMember ) const {
+        std::string type = this->ComponentMembers[namberOfMember].Type();
+        return this->m_cTypeMatching[ type ];
     }
     
     /**
      * @arg namberOfMember namber of component member.
      * @return the type keyword in sql for this type.
      **/    
-    string getMemberSQLType ( int namberOfMember ) {
-        return m_sqlTypeMatching[ this->ComponentMembers[namberOfMember].Type ];
+    const std::string& getMemberSQLType ( const int namberOfMember ) const {
+        return this->m_sqlTypeMatching[ this->ComponentMembers[namberOfMember].Type ];
     }
+    
+    
+  
     
 private:
     
     /**
     * A map list vor matching c++ types with html form types.
     **/      
-    map<string, string> m_cTypeMatching; 
+    std::map<std::string, std::string> m_cTypeMatching; 
     
     /**
     * A map list vor matching sql types with html form types.
     **/      
-    map<string, string> m_sqlTypeMatching; 
+    std::map<std::string, std::string> m_sqlTypeMatching; 
 };
 
 

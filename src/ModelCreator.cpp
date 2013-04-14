@@ -42,7 +42,7 @@ void ModelCreator::creatH ( void ) {
     // create private members.
     for ( unsigned int i=0; i<m_compInfo.ComponentMembers.size(); i++) {
         codeOutput += "\t /** \n";
-        codeOutput += "\t * No commant \n";
+        codeOutput += "\t * No comment \n";
         codeOutput += "\t **/ \n";
         codeOutput += "\t void " + m_compInfo.getMemberCType(i) + " ";
         codeOutput += "m_" + m_compInfo.ComponentMembers[i].Name + ";\n\n";
@@ -112,7 +112,7 @@ void ModelCreator::creatCPP( void ) {
     codeOutput += "\t conn.execute( sqlcommand );\n";   
     codeOutput += "} \n"; 
     
-    writingFile ( "modelles/" + m_compInfo.Name + ".cpp", codeOutput);    
+    writingFile ( "modelles/" + m_compInfo.Name + "Model.cpp", codeOutput); 
 }
 
 void ModelCreator::Run ( void ) {

@@ -13,7 +13,6 @@
 # define ERROR std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] " <<
 # define DEBUG std::cout << "[" << __FILE__ << ":" << __LINE__ << "] " <<
 
-using namespace std; 
 
 
 /**
@@ -51,10 +50,10 @@ private:
     /**
     * Create a directory.
     **/        
-    void createDir ( string path ) {
-        string command = "mkdir " + path;
+    void createDir ( std::string path ) {
+        std::string command = "mkdir " + path;
         int result = system( command.c_str() );
-        DEBUG "The value returned was: " << result << endl;        
+        DEBUG "The value returned was: " << result << std::endl;        
     }
     
     /**
@@ -62,8 +61,8 @@ private:
     * @arg filename file name.
     * @arg textvalue text value.
     **/     
-    void writingFile ( string filename, string textvalue){
-        ofstream myfile( filename.c_str() );
+    void writingFile ( std::string filename, std::string textvalue){
+        std::ofstream myfile( filename.c_str() );
         myfile << textvalue;
         myfile.close();        
     }

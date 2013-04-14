@@ -3,7 +3,6 @@
 
 #include <string>
 
-using namespace std; 
 
 /**
  * A helper class for store component member.
@@ -11,20 +10,37 @@ using namespace std;
 class  TypInfo {
     
 public:
+    
     /**
     * Name of component member.
     **/    
-    string Name;
+    std::string const Name() const {
+        return this->n_Name;
+    };
     
     /**
     * Typ of component member (as htnl form type).
     **/    
-    string Type;
+    std::string const Type() const{
+        return this->n_Type;
+    };
     
     TypInfo () {
-        this->Name = "";
-        this->Type = "";
+        this->n_Name = "";
+        this->n_Type = "";
     };
+    
+private:
+    
+    /**
+    * Name of component member.
+    **/    
+    std::string n_Name;
+    
+    /**
+    * Typ of component member (as htnl form type).
+    **/    
+    std::string n_Type;    
 };
 
 

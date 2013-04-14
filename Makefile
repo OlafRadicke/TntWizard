@@ -8,7 +8,7 @@ LIBS += -I/usr/include
 
 OBJECTS = \
 ./src/tntwizard.o \
-./src/CrontollerCreator.o \
+./src/ControllerCreator.o \
 ./src/ModelCreator.o \
 ./src/ViewCreator.o \
 
