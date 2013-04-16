@@ -62,7 +62,7 @@ int main( int argc, char* argv[] )
         
         ///////////// is no argument. is a value... /////////////////
         if ( argType == "--component" ) {
-            compInfo.Name =  std::string(argv[i]) ;
+            compInfo.setName( std::string(argv[i]) );
             continue;
         }
         if ( argType == "--text" ) {

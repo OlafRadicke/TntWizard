@@ -4,13 +4,13 @@
 void ModelCreator::creatH ( void ) {
     std::string codeOutput = "";
     
-    codeOutput += "#ifndef " + upercase( m_compInfo.Name ) +"_H \n";
-    codeOutput += "#define " + upercase( m_compInfo.Name ) +"_H \n\n"; 
+    codeOutput += "#ifndef " + upercase( m_compInfo.getName() ) +"_H \n";
+    codeOutput += "#define " + upercase( m_compInfo.getName() ) +"_H \n\n"; 
     codeOutput += "#include <string> \n\n"; 
     codeOutput += "#include <tntdb/connection.h>\n"; 
     codeOutput += "#include <tntdb/connect.h>\n"; 
     codeOutput += "#include <tntdb/result.h> \n\n"; 
-    codeOutput += "class " + m_compInfo.Name + " { \n\n";    
+    codeOutput += "class " + m_compInfo.getName() + " { \n\n";    
     codeOutput += "public:\n\n"; 
     
     // create geter functions.
@@ -18,9 +18,9 @@ void ModelCreator::creatH ( void ) {
         codeOutput += "\t /** \n";
         codeOutput += "\t * @return. \n";
         codeOutput += "\t **/ \n";
-        codeOutput += "\t " + m_compInfo.getMemberCType(i);
-        codeOutput += " get" + m_compInfo.ComponentMembers[i].Name() +"( ) {;\n";
-        codeOutput += "\t\t return this->m_" + m_compInfo.ComponentMembers[i].Name() + ";\n";
+        codeOutput += "\t " + m_compInfo.getMemberCType(i) + " const";
+        codeOutput += " get" + m_compInfo.ComponentMembers[i].getName() +"( ) const {;\n";
+        codeOutput += "\t\t return this->m_" + m_compInfo.ComponentMembers[i].getName() + ";\n";
         codeOutput += "\t } \n\n";
     }        
     
@@ -30,9 +30,9 @@ void ModelCreator::creatH ( void ) {
         codeOutput += "\t /** \n";
         codeOutput += "\t * @arg newValue. \n";
         codeOutput += "\t **/ \n";
-        codeOutput += "\t void set" + m_compInfo.ComponentMembers[i].Name() +"( ";
+        codeOutput += "\t void set" + m_compInfo.ComponentMembers[i].getName() +"( ";
         codeOutput +=  m_compInfo.getMemberCType(i) + " newValue ) {;\n";
-        codeOutput += "\t\t this->m_" + m_compInfo.ComponentMembers[i].Name();
+        codeOutput += "\t\t this->m_" + m_compInfo.ComponentMembers[i].getName();
         codeOutput += " = newValue;\n";
         codeOutput += "\t } \n\n";
     }      
@@ -45,22 +45,22 @@ void ModelCreator::creatH ( void ) {
         codeOutput += "\t * No comment \n";
         codeOutput += "\t **/ \n";
         codeOutput += "\t void " + m_compInfo.getMemberCType(i) + " ";
-        codeOutput += "m_" + m_compInfo.ComponentMembers[i].Name() + ";\n\n";
+        codeOutput += "m_" + m_compInfo.ComponentMembers[i].getName() + ";\n\n";
     }     
     codeOutput += "};\n";
-    writingFile ( "modelles/" + m_compInfo.Name + ".h", codeOutput);    
+    writingFile ( "modelles/" + m_compInfo.getName() + ".h", codeOutput);    
 }
 
 void ModelCreator::creatCPP( void ) {
     
     std::string codeOutput = "";
-    codeOutput += "#include \"" + m_compInfo.Name + ".h\" \n\n"; 
+    codeOutput += "#include \"" + m_compInfo.getName() + ".h\" \n\n"; 
     codeOutput += "/**\n";
     codeOutput += " Table create command:\n";
-    codeOutput += "CREATE TABLE  " + m_compInfo.Name +" ( \n";
+    codeOutput += "CREATE TABLE  " + m_compInfo.getName() +" ( \n";
     codeOutput += "\t id  \t SERIAL \t PRIMARY KEY, \n";
     for ( unsigned int i=0; i<m_compInfo.ComponentMembers.size(); i++) {
-        codeOutput += "\t " + m_compInfo.ComponentMembers[i].Name();
+        codeOutput += "\t " + m_compInfo.ComponentMembers[i].getName();
         codeOutput += "\t " + m_compInfo.getMemberSQLType(i) + " \t NOT NULL";
         // if not the last item...
         if ( i<m_compInfo.ComponentMembers.size() ) {
@@ -73,7 +73,7 @@ void ModelCreator::creatCPP( void ) {
     codeOutput += "**/\n ";
   
     // Function
-    codeOutput += "void " + m_compInfo.Name + "::saveAsNew( ) { \n"; 
+    codeOutput += "void " + m_compInfo.getName() + "::saveAsNew( ) { \n"; 
     codeOutput += "\t std::string sqlcommand = \"\"; \n"; 
     codeOutput += "\t tntdb::Connection conn;\n"; 
     codeOutput += "\t tntdb::Result result; \n";       
@@ -82,10 +82,10 @@ void ModelCreator::creatCPP( void ) {
     
     
     
-    codeOutput += "\t sqlcommand = \"INSERT INTO " + m_compInfo.Name +"\"; \n";
+    codeOutput += "\t sqlcommand = \"INSERT INTO " + m_compInfo.getName() +"\"; \n";
     codeOutput += "\t sqlcommand += \"( \"\n";
     for ( unsigned int i=0; i<m_compInfo.ComponentMembers.size(); i++) {
-        codeOutput += "\t sqlcommand += \"\t " + m_compInfo.ComponentMembers[i].Name() ;
+        codeOutput += "\t sqlcommand += \"\t " + m_compInfo.ComponentMembers[i].getName() ;
         // if not the last item...
         if ( (i+1) <m_compInfo.ComponentMembers.size() ) {
             codeOutput += ", \";\n";
@@ -96,10 +96,10 @@ void ModelCreator::creatCPP( void ) {
     }
     codeOutput += "\t sqlcommand += \") VALUES ( \"\n";
     for ( unsigned int i=0; i<m_compInfo.ComponentMembers.size(); i++) {
-        if ( m_compInfo.ComponentMembers[i].Type() == "number" ) {
-            codeOutput += "\t sqlcommand += \"\t \" + m_" + m_compInfo.ComponentMembers[i].Name() + " + \"";
+        if ( m_compInfo.ComponentMembers[i].getType() == "number" ) {
+            codeOutput += "\t sqlcommand += \"\t \" + m_" + m_compInfo.ComponentMembers[i].getName() + " + \"";
         } else {
-            codeOutput += "\t sqlcommand += \"\t '\" + m_" + m_compInfo.ComponentMembers[i].Name() + " + \"'" ;
+            codeOutput += "\t sqlcommand += \"\t '\" + m_" + m_compInfo.ComponentMembers[i].getName() + " + \"'" ;
         }
         // if not the last item...
         if ( (i+1) <m_compInfo.ComponentMembers.size() ) {
@@ -112,7 +112,7 @@ void ModelCreator::creatCPP( void ) {
     codeOutput += "\t conn.execute( sqlcommand );\n";   
     codeOutput += "} \n"; 
     
-    writingFile ( "modelles/" + m_compInfo.Name + "Model.cpp", codeOutput); 
+    writingFile ( "modelles/" + m_compInfo.getName() + "Model.cpp", codeOutput); 
 }
 
 void ModelCreator::Run ( void ) {

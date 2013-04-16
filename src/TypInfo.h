@@ -14,7 +14,7 @@ public:
     /**
     * Name of component member.
     **/    
-    std::string const Name() const {
+    std::string const getName() const {
         return this->n_Name;
     };
     
@@ -38,7 +38,7 @@ public:
     /**
     * Typ of component member (as htnl form type).
     **/    
-    std::string const Type() const{
+    std::string const getType() const{
         return this->n_Type;
     };
     

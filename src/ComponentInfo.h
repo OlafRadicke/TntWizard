@@ -17,9 +17,19 @@ public:
 
 
     /**
-    * Name of keyword.
+    * Get name of component.
     **/    
-    std::string Name;
+    std::string const getName() const {
+        return m_Name;
+    };
+    
+
+    /**
+    * Set name of component
+    **/    
+    void setName( std::string value ) {
+        this->m_Name = value;
+    };    
     
     /**
     * Component member.
@@ -27,7 +37,7 @@ public:
     std::vector<TypInfo> ComponentMembers;
     
     ComponentInfo () {
-        this->Name = "";
+        this->m_Name = "";
         m_cTypeMatching["text"] = "std::string";
         m_cTypeMatching["textarea"] = "std::string";
         m_cTypeMatching["password"] = "std::string";
@@ -63,7 +73,7 @@ public:
      * @return the type keyword in c for this type.
      **/    
     const std::string& getMemberCType ( const int namberOfMember ) const {
-        std::string htmltype = this->ComponentMembers[namberOfMember].Type();
+        std::string htmltype = this->ComponentMembers[namberOfMember].getType();
         std::map<std::string, std::string>::const_iterator it = 
             m_cTypeMatching.find( htmltype );
         // in C++11 kann man es kürzer schreiben:
@@ -78,7 +88,7 @@ public:
      * @return the type keyword in sql for this type.
      **/    
     const std::string& getMemberSQLType ( const int namberOfMember ) const {
-        std::string htmltype = this->ComponentMembers[namberOfMember].Type();
+        std::string htmltype = this->ComponentMembers[namberOfMember].getType();
         std::map<std::string, std::string>::const_iterator it = 
             m_cTypeMatching.find( htmltype );
         // in C++11 kann man es kürzer schreiben:
@@ -92,6 +102,12 @@ public:
   
     
 private:
+
+    /**
+    * Name of component.
+    **/    
+    std::string m_Name;    
+    
     
     /**
     * A map list vor matching c++ types with html form types.
